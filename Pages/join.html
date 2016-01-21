@@ -2,8 +2,8 @@
 <html> 
     <head> 
         <!-- Fonts --> 
-        <link href='http://fonts.googleapis.com/css?family=Exo+2:300' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=Roboto:400,100' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Exo+2:300' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Roboto:400,100' rel='stylesheet' type='text/css'>
         <link href='https://fonts.googleapis.com/css?family=Libre+Baskerville|Open+Sans' rel='stylesheet' type='text/css'>
         <!-- jQuery --> 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">   </script>
@@ -27,7 +27,7 @@
         <div class="content-container">
         <div class="nav"> 
             <ul> 
-                <li> <a href="Winterim.html"> HOME </a></li>
+                <li> <a href="/"> HOME </a></li>
                 <li> <a href="about.html"> Understand the Problem </a> </li>
                 <li> <a href="https://yourrescue.org/projects/mpacares-a-service-group-lead-by-students-at-maeser-preparatory-academy/">Donate </a></li>
                 <li> <a href="join.html">Join </a></li>
@@ -89,22 +89,34 @@
                 </form>
                 <script> 
                     // FACEBOOOK user authentication 
-                    $('#login-facebook').click(function () {
-                        var myDataRef = new Firebase('https://mpacares.firebaseio.com/');
-                        myDataRef.authWithOAuthPopup('facebook', function (error) {
+                    
+                    function facebookAdapter(auth) {
+                        var user = {
+                                    name: auth.facebook.displayName || '',
+                                    email: auth.facebook.email || '', 
+                                    picture: auth.facebook.profileImageURL || ''
+                                };
+                        return user;
+                    }
+                    function saveUserData(provider, adapter) {
+                        myDataRef.authWithOAuthPopup(provider, function (error) {
                             if (error) {
                                 console.error(error);
                             } else {
                                 var auth = myDataRef.getAuth();
-                                console.log(myDataRef.getAuth());  
+                                console.log(myDataRef.getAuth());
+                                var user = adapter(auth);
                                 var usersRef = myDataRef.child('users').child(auth.uid);
-                                var user = {
-                                    name: auth.facebook.displayName || '',
-                                    email: auth.facebook.email || ''
-                                };
-                                usersRef.set(user);
+                                usersRef.set(user, function(error) {
+                                    if (error) {
+                                        console.error(error);
+                                    }
+                                });
                             }
-                        }, {scope: 'email'});
+                        }, {scope: 'email'});  
+                    }
+                    $('#login-facebook').click(function () {
+                        saveUserData('facebook', facebookAdapter);
                     });
                     
                     // GOOGLE user authentication 
@@ -113,13 +125,16 @@
                         ref.authWithOAuthPopup("google", function (error, authData) {
                             if (error) {
                                 console.error("Login Failed!", error);
+                            /* Ask Nate - what does "error" even mean? 
+                            How does the computer tell if an error has happened or not? */
                             } else {
                                 var auth = ref.getAuth(); 
                                 console.log(ref.getAuth()); 
                                 var usersRef = ref.child('users').child(auth.uid);
                                 var user = { 
                                     name: auth.google.displayName || '', 
-                                    email: auth.google.email || '' 
+                                    email: auth.google.email || '', 
+                                    picture: auth.google.profileImageURL || ''
                                 }; 
                                 usersRef.set(user);
                                 console.log("Authenticated successfully with payload:", authData);
@@ -140,7 +155,8 @@
                                 var usersRef = ref.child('users').child(auth.uid);
                                 var user = { 
                                     name: auth.twitter.displayName || '', 
-                                    email: '' 
+                                    email: '', 
+                                    picture: auth.twitter.profileImageURL || ''
                                 }; 
                                 usersRef.set(user);
                             }         
