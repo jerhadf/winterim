@@ -1,0 +1,151 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+    <title> Current Campaigns </title>
+    <!-- Fonts --> 
+    <link href='http://fonts.googleapis.com/css?family=Exo+2:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,100' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Libre+Baskerville|Open+Sans' rel='stylesheet' type='text/css'>
+    <!-- jQuery and jQuery UI --> 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+    <!-- Bootstrap CSS & JS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <script src="js/bootstrap.min.js"></script>
+    <!-- Flat UI Bootstrap --> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flat-ui/2.2.2/css/flat-ui.min.css"> 
+    <!-- Font Awesome Bootstrap CDN --> 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <!-- STYLESHEET --> 
+    <link rel="stylesheet" href="campaigns.css">
+    <!-- Social Buttons for Bootstrap --> 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bootstrap-social/4.12.0/bootstrap-social.css" type="text/css">
+    <!-- META --> 
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <!-- Firebase --> 
+    <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>       
+</head>
+    
+<body> 
+    <div class="nav"> 
+        <ul> 
+            <li> <a href="Winterim.html"> HOME </a></li>
+            <li> <a href="about.html"> Understand the Problem </a> </li>
+            <li> <a href="https://yourrescue.org/projects/mpacares-a-service-group-lead-by-students-at-maeser-preparatory-academy/">Donate </a></li>
+            <li> <a href="join.html">Join </a></li>
+            <li> <a href="campaigns.html">Current Campaigns </a></li>
+            <li> <a href="contact.html">Contact </a></li>
+        </ul>
+    </div>
+    <div class="container text-center campaigns"> 
+        <div class="row fiveforfive expando1"> 
+            <h1 class="title1"> 5 for 5 </h1>
+            <h6 class="lead subtitle"> Connecting communities to fight human trafficking. </h6>
+            <div id="desc1"> 
+                <p> <strong>5 for 5</strong> is a campaign to raise funds for an Underground Railroad mission to take down a human trafficking network, 5 donations at a time. As a result, students united against slavery and urged their friends to do the same. This campaign started at Maeser Prep Academy right before Christmas. Since then, we've raised <br><kbd class="dolla"><strong>$<span id="donation"></span></strong></kbd></p>                </div>
+                <div id="desc2">
+                <h6> See what we did </h6>
+                <p> Insert link to Winterim page on maeserprep.org and a short desc of the MPA cares winterim </p>
+            </div>
+            <button class="donate"> <a href="https://yourrescue.org/projects/mpacares-a-service-group-lead-by-students-at-maeser-preparatory-academy/">Donate your $5 </a></button>
+        </div>            
+        <div class="row winterim16 expando2">
+            <h1 class="title2"> Winterim 2016 </h1>
+            <img src="https://yourrescue.org/wp-content/uploads/2015/12/Winterim-Logos-2016_MPA-Cares-1-255x255.png" height="200px" width="200px">
+            <h6 class="lead subtitle"> The members of MPA Cares, working together on the projects that will best help victims. </h6>
+            <div id="desc1"> 
+                <p> <strong>Winterim 2016</strong> is a 3-week period where members of MPA Cares will focus exclusively on the primary mission of the organization: reduce modern slavery and support the victims of it. During this winterim,  </p>
+            </div>
+            <div id="desc2">
+                <h6> What you can do </h6>
+                <p> First, <strong> donate $5 </strong> to the campaign. Then, <strong>find 5 people </strong> - friends, enemies, associates, even mother-in-laws - and <strong>get them to donate $5</strong>. Once they donate, ask them to <strong>find 5 more people </strong>. Your initial action can spread across your social networks like a <strong> beautiful, slavery-ending disease. </strong></p>
+            </div>
+        </div>
+    </div>
+<script> 
+    
+// DOLLAR COUNTER-UPPER (base jQuery, no other libraries needed)
+// Counts the number up from 0 to the specified number. For visual appeal.  
+// You can edit the values at the bottom. 
+(function($) {
+    $.fn.countTo = function(options) {
+        // merge the default settings with the custom options
+        options = $.extend({}, $.fn.countTo.defaults, options || {});
+
+        // how many times to update the value, and how much to increment the value on each update
+        var loops = Math.ceil(options.speed / options.refreshInterval),
+            increment = (options.to - options.from) / loops;
+
+        return $(this).each(function() {
+            var _this = this,
+                loopCount = 0,
+                value = options.from,
+                interval = setInterval(updateTimer, options.refreshInterval);
+
+            function updateTimer() {
+                value += increment;
+                loopCount++;
+                $(_this).html(value.toFixed(options.decimals));
+
+                if (typeof(options.onUpdate) == 'function') {
+                    options.onUpdate.call(_this, value);
+                }
+
+                if (loopCount >= loops) {
+                    clearInterval(interval);
+                    value = options.to;
+
+                    if (typeof(options.onComplete) == 'function') {
+                        options.onComplete.call(_this, value);
+                    }
+                }
+            }
+        });
+    };
+
+    $.fn.countTo.defaults = {
+        from: 0,  // the number the element should start at
+        to: 100,  // the number the element should end at
+        speed: 1000,  // how long it should take to count between the target numbers
+        refreshInterval: 100,  // how often the element should be updated
+        decimals: 0,  // the number of decimal places to show
+        onUpdate: null,  // callback method for every time the element is updated,
+        onComplete: null,  // callback method for when the element finishes updating
+    };
+})(jQuery);
+    
+// Edit default values here (see above for original defaults)
+$(function($) {
+        $("#donation").countTo({
+            from: 50,
+            to: 1703,
+            speed: 5000,
+            refreshInterval: 50,
+            onComplete: function(value) {
+            console.debug(this);
+        }
+    });
+});
+    
+// EXPANDO FUNCTION (uses jQuery UI) 
+//This expands the campaign jumbotrons when they're hovered over. For visual appeal. 
+$(function(expando1) {
+    $(".expando1").click(function() { 
+        $(".expando1").toggleClass("expand"); 
+        $(".container").toggleClass("expand"); 
+        $(".title1").toggleClass("expand"); 
+    }); 
+}); 
+    
+$(function(expando2) {
+    $(".expando2").click(function() { 
+        $(".expando2").toggleClass("expand"); 
+        $(".container").toggleClass("expand"); 
+        $(".title2").toggleClass("expand"); 
+    }); 
+});     
+    
+</script>
+    
+</body>
+</html>

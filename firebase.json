@@ -1,0 +1,8 @@
+{
+  "firebase": "mpacares",
+  "public": "Pages",
+  "ignore": [
+    "firebase.json",
+    "**/node_modules/**"
+  ]
+}

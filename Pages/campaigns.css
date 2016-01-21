@@ -1,0 +1,172 @@
+/*========================================
+  Prereqs 
+  ========================================*/
+/* Making the box setting border-box. */ 
+*, *:before, *:after { 
+    -webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box; 
+}
+
+body { 
+    position: relative;
+} 
+/*========================================
+  Navigation Bar 
+  ========================================*/
+.nav li:hover { 
+    background-color: #117bff; 
+    cursor: pointer; 
+    transition: background .4s linear; 
+} 
+
+.nav { 
+    background-color: black;
+    height: 80px; 
+    width: 100%; 
+    position: fixed;
+    top: 0;
+    z-index:2; 
+} 
+
+.nav ul { 
+    text-align: center; 
+} 
+
+.nav li { 
+    display: inline-block; 
+    font-family: 'Roboto', sans-serif; 
+    font-weight: 100;
+    color: white; 
+    list-style: none; 
+    line-height: 80px; 
+    height: 80px; 
+    padding-left: 10px; 
+    padding-right: 10px; 
+    text-decoration-style: none; 
+    font-size: 18px; 
+} 
+
+.nav a {
+    text-decoration: none;  
+    color: white;
+} 
+
+/*========================================
+  First Campaign 
+  ========================================*/
+.container { 
+    width: 60%;
+} 
+
+.container.expand { 
+    width: 80%;
+    transition: width .3s linear; 
+} 
+
+.campaigns { 
+    margin-top: 80px; 
+} 
+
+.expando1:hover { 
+    cursor: pointer; 
+} 
+
+.expando1.expand { 
+    background-color: rgb(41, 227, 120);
+    margin-top: 2%; 
+    margin-bottom: 10%; 
+    transition: background .4s linear, margin .4s linear; 
+} 
+
+.expando2:hover { 
+    cursor: pointer; 
+} 
+
+.expando2.expand { 
+    background-color: rgb(41, 227, 120);
+    margin-top: 5%; 
+    margin-bottom: 10%;
+    transition: background .4s linear, margin .4s linear; 
+} 
+
+.title1.expand { 
+    font-size: 10vw; 
+    transition: font-size .4s linear; 
+} 
+
+.title2.expand { 
+    font-size: 7vw; 
+    transition: font-size .4s linear; 
+} 
+
+.fiveforfive { 
+    border: 1px solid black;
+    padding: 15px;
+    margin-top: 10px;
+} 
+
+.fiveforfive h1 { 
+    font-size: 6vw;
+    color: black;
+    padding: 5px; 
+    margin-bottom: 5px; 
+} 
+
+.dolla {
+    font-size: 28px; 
+} 
+
+.donate { 
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: #117bff; 
+    box-shadow: none; 
+    border: 5px solid #0E67D6;
+    padding-left: 25px; 
+    padding-right: 25px;
+    padding-top: 8px; 
+    padding-bottom: 8px; 
+} 
+
+.donate a { 
+    color: white; 
+    font-weight: 200;
+} 
+
+.donate a: hover { 
+    color: black;
+    font-weight: 500;
+} 
+
+.donate:hover { 
+    background-color: black; 
+    cursor: pointer; 
+    border-radius: 4px; 
+    border: 5px solid rgb(25, 25, 25); 
+    transition: background .4s linear, border .4s linear, border-radius .3s linear; 
+} 
+
+.winterim16 { 
+    border: 1px solid black;
+    padding: 15px;
+    margin-top: 10px;
+} 
+
+.winterim16 h1 { 
+    font-size: 5vw;
+    color: black;
+    padding: 5px; 
+    margin-bottom: 5px; 
+} 
+
+.subtitle { 
+    margin-bottom: 3px; 
+} 
+
+#desc1 { 
+    margin-bottom: 50px;
+} 
+/*========================================
+    Second Campaign 
+  ========================================*/

@@ -1,0 +1,71 @@
+<!DOCTYPE html> 
+<html> 
+    <head> 
+        <!-- Fonts --> 
+        <link href='http://fonts.googleapis.com/css?family=Exo+2:300' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Roboto:400,100' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Libre+Baskerville|Open+Sans' rel='stylesheet' type='text/css'>
+        <!-- jQuery --> 
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">   </script>
+        <!-- Bootstrap CSS & JS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+        <script src="js/bootstrap.min.js"></script>
+        <!-- Flat UI Bootstrap --> 
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flat-ui/2.2.2/css/flat-ui.min.css"> 
+        <!-- Font Awesome Bootstrap CDN --> 
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+        <!-- STYLESHEET --> 
+        <link rel="stylesheet" href="contact.css">
+        <!-- Social Buttons for Bootstrap --> 
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/bootstrap-social/4.12.0/bootstrap-social.css" type="text/css">
+        <!-- META --> 
+        <meta name="viewport" content="width=device-width, initial-scale=1"> 
+        <!-- Firebase --> 
+        <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+    </head>
+    <body> 
+        <div class="nav"> 
+            <ul> 
+                <li> <a href="Winterim.html"> HOME </a></li>
+                <li> <a href="about.html"> Understand the Problem </a> </li>
+                <li> <a href="https://yourrescue.org/projects/mpacares-a-service-group-lead-by-students-at-maeser-preparatory-academy/">Donate </a></li>
+                <li> <a href="join.html">Join </a></li>
+                <li> <a href="currentcampaigns.html">Current Campaigns </a></li>
+                <li> <a href="contact.html">Contact </a></li>
+            </ul>
+        </div>
+        <div class="container">
+            <div class="row"> 
+            <div class="contact">
+                <form>
+                    <div class="col-md-6"> 
+                    <h3 id="message"> Send us a message. </h3>
+                    <div class="form-container">
+                        <div class="form-group"> 
+                            <label> Your email address </label>
+                            <input type="email" class="form-control" id="InputEmail" placeholder="Email Address"> 
+                        </div>
+                        <div class="form-group"> 
+                            <label> Write your message here </label>
+                            <textarea class="form-control" rows="5"> </textarea>
+                        </div>
+                    </div> 
+                    </div>
+                    <div class="col-md-6"> 
+                        <img class="img-circle" src="http://noorimages.com/wp-content/uploads/2013/06/BOP067SE0116-888x592.jpg" width="530px" height="390px"/>
+                    </div>
+                    <button class="btn btn-primary" type="submit" style="width:100%; margin-top: 20px;"> Send </button>
+                </form>
+            </div>
+            </div>
+        </div>
+        <script> 
+            // To change the button on click 
+            $(document).ready(function() { 
+                $(".btn").click(function() { 
+                    $(".btn").toggleClass("clicked"); 
+                }); 
+            }); 
+        </script>
+    </body> 
+</html> 

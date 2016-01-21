@@ -1,0 +1,155 @@
+<!DOCTYPE html> 
+<html> 
+    <head> 
+        <!-- Fonts --> 
+        <link href='http://fonts.googleapis.com/css?family=Exo+2:300' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Roboto:400,100' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Libre+Baskerville|Open+Sans' rel='stylesheet' type='text/css'>
+        <!-- jQuery --> 
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">   </script>
+        <!-- Bootstrap CSS & JS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+        <script src="js/bootstrap.min.js"></script>
+        <!-- Flat UI Bootstrap --> 
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flat-ui/2.2.2/css/flat-ui.min.css"> 
+        <!-- Font Awesome Bootstrap CDN --> 
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+        <!-- STYLESHEET --> 
+        <link rel="stylesheet" href="join.css">
+        <!-- Social Buttons for Bootstrap --> 
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/bootstrap-social/4.12.0/bootstrap-social.css" type="text/css">
+        <!-- META --> 
+        <meta name="viewport" content="width=device-width, initial-scale=1"> 
+        <!-- Firebase --> 
+        <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+    </head>
+    <body> 
+        <div class="content-container">
+        <div class="nav"> 
+            <ul> 
+                <li> <a href="Winterim.html"> HOME </a></li>
+                <li> <a href="about.html"> Understand the Problem </a> </li>
+                <li> <a href="https://yourrescue.org/projects/mpacares-a-service-group-lead-by-students-at-maeser-preparatory-academy/">Donate </a></li>
+                <li> <a href="join.html">Join </a></li>
+                <li> <a href="campaigns.html">Current Campaigns </a></li>
+                <li> <a href="contact.html">Contact </a></li>
+            </ul>
+        </div> 
+        <div class="container"> 
+            <div class="row"> 
+            <div class="join">
+                <form>
+                    <div class="col-md-8"> 
+                        <h3 id="message"> Join MPA Cares </h3>
+                        <div class="form-container">
+                            <div class="btn-social-container">
+                                <a id="login-google" title="Google" class="btn btn-block btn-social btn-lg btn-google">
+                                    <i class="fa fa-google">
+                                    </i>
+                                    Sign up with Google 
+                                </a>
+                                <a id="login-facebook" title="Facebook" class="btn btn-block btn-social btn-lg btn-facebook">
+                                    <i class="fa fa-facebook">
+                                    </i>
+                                    Sign up with Facebook
+                                </a>
+                                <a id="login-twitter" title="Twitter" class="btn btn-block btn-social btn-lg btn-twitter">
+                                    <i class="fa fa-twitter">
+                                    </i>
+                                    Sign up with Twitter
+                                </a>
+                            <h6 id="manual"> Or sign up manually: </h6>
+                            <div class="form-group"> 
+                                <label> Your email address </label>
+                                <input type="email" class="form-control" id="InputEmail" placeholder="Email Address"> 
+                            </div>
+                            <div class="form-group"> 
+                                <label> Your name </label>
+                                <input type="text" class="form-control" id="InputName" placeholder="Name">
+                            </div>
+                            <div class="form-group"> 
+                                <label> Your school </label>
+                                <input type="text" class="form-control" id="InputSchool" placeholder="School">
+                            </div>
+                            </div>
+                        </div> 
+                    </div>
+                    <div class="col-md-4"> 
+                        <h5 id="desc"> What can you do? </h5>
+                        <p class="lead" id="tagline"> Members of MPA cares are students who work to end human trafficking, child slavery, and the sex trade. </p>
+                        <p class="lead" id="pledgetag"> As a member of MPA cares, you pledge to do the following: </p>
+                        <ul> 
+                            <li> <strong> Inform </strong> those around you of the vicious industries built upon slavery. </li>
+                            <li> <strong> Support </strong> efforts to end human trafficking by raising funds for organizations fighting slavery at the frontline. </li>
+                            <li> <strong> Fight </strong> slavery in your area by reporting suspicious activity whenever and whereever you see it. </li>
+                            <li> <strong> Empower </strong> the victims of human trafficking and those vulnerable to it by reaching out, spreading information, and creating networks of support. </li>
+                        </ul>
+                        <button class="btn btn-primary" id="pledge-btn" type="submit" style="width:100%"> I agree to the pledge. </button>
+                    </div>
+                </form>
+                <script> 
+                    // FACEBOOOK user authentication 
+                    $('#login-facebook').click(function () {
+                        var myDataRef = new Firebase('https://mpacares.firebaseio.com/');
+                        myDataRef.authWithOAuthPopup('facebook', function (error) {
+                            if (error) {
+                                console.error(error);
+                            } else {
+                                var auth = myDataRef.getAuth();
+                                console.log(myDataRef.getAuth());  
+                                var usersRef = myDataRef.child('users').child(auth.uid);
+                                var user = {
+                                    name: auth.facebook.displayName || '',
+                                    email: auth.facebook.email || ''
+                                };
+                                usersRef.set(user);
+                            }
+                        }, {scope: 'email'});
+                    });
+                    
+                    // GOOGLE user authentication 
+                    $('#login-google').click(function () { 
+                        var ref = new Firebase("https://mpacares.firebaseio.com/");
+                        ref.authWithOAuthPopup("google", function (error, authData) {
+                            if (error) {
+                                console.error("Login Failed!", error);
+                            } else {
+                                var auth = ref.getAuth(); 
+                                console.log(ref.getAuth()); 
+                                var usersRef = ref.child('users').child(auth.uid);
+                                var user = { 
+                                    name: auth.google.displayName || '', 
+                                    email: auth.google.email || '' 
+                                }; 
+                                usersRef.set(user);
+                                console.log("Authenticated successfully with payload:", authData);
+                            }
+                        }, {scope: 'email'});
+                    }); 
+                    
+                    // TWITTER user authentication 
+                    $('#login-twitter').click(function () { 
+                        var ref = new Firebase("https://mpacares.firebaseio.com");
+                        ref.authWithOAuthPopup("twitter", function(error, authData) {
+                            if (error) {
+                                console.error("Login Failed!", error);
+                            } else {
+                                console.log("Authenticated successfully with payload:", authData);
+                                var auth = ref.getAuth(); 
+                                console.log(ref.getAuth()); 
+                                var usersRef = ref.child('users').child(auth.uid);
+                                var user = { 
+                                    name: auth.twitter.displayName || '', 
+                                    email: '' 
+                                }; 
+                                usersRef.set(user);
+                            }         
+                        });
+                    }); 
+                </script>
+            </div>
+            </div>
+        </div>
+        </div>
+    </body>
+</html>

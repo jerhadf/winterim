@@ -1,0 +1,97 @@
+/*========================================
+  Prereqs 
+  ========================================*/
+/* Making the box setting border-box. */ 
+*, *:before, *:after { 
+    -webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box; 
+}
+/* CSS reset to remove any random whitespace. */ 
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, caption {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+}
+
+body { 
+    font-family: 'Roboto', sans-serif;
+	font-weight: 100;
+    position: relative;
+} 
+
+.content-container { 
+    width: 100%; 
+} 
+
+p { 
+    position: relative; 
+    font-family: 'Roboto', sans-serif; 
+    font-weight: 400; 
+    font-size: 12px; 
+    line-height: 2px; 
+    color: black; 
+} 
+
+/*========================================
+  Navigation Bar 
+  ========================================*/
+li:hover { 
+    background-color: #117bff; 
+    cursor: pointer; 
+    transition: background .7s linear; 
+    -webkit-transition: background .7s linear; 
+    -moz-transition: background .7s linear; 
+    -o-transition: background .7s linear; 
+} 
+
+.nav { 
+    background-color: black;
+    height: 80px; 
+    width: 100%; 
+    position: fixed;
+    top: 0;
+    z-index:2; 
+} 
+
+.nav ul { 
+    text-align: center; 
+} 
+
+.nav li { 
+    display: inline-block; 
+    font-family: 'Roboto', sans-serif; 
+    color: white; 
+    list-style: none; 
+    line-height: 80px; 
+    height: 80px; 
+    padding-left: 10px; 
+    padding-right: 10px; 
+    text-decoration-style: none; 
+} 
+
+.nav a {
+    text-decoration: none;  
+    color: white;
+} 
+
+/*========================================
+  Clearfix
+  ========================================*/
+
+.group:before,
+.group:after {
+  content: "";
+  display: table;
+}
+.group:after {
+  clear: both;
+}
+.group {
+  clear: both;
+  *zoom: 1;
+}
