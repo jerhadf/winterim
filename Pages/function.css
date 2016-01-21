@@ -22,6 +22,7 @@ body {
     font-family: 'Roboto', sans-serif;
 	font-weight: 100;
     position: relative;
+    overflow: hidden;
 } 
 
 .content-container { 
@@ -72,6 +73,7 @@ li:hover {
     padding-left: 10px; 
     padding-right: 10px; 
     text-decoration-style: none; 
+    font-size: 18px;
 } 
 
 .nav a {

@@ -12,6 +12,7 @@ body {
     font-family: 'Roboto', sans-serif;
 	font-weight: 100;
     position: relative;
+    overflow: hidden;
 } 
 
 .container { 
@@ -61,7 +62,8 @@ li:hover {
     height: 80px; 
     padding-left: 10px; 
     padding-right: 10px; 
-    text-decoration-style: none; 
+    text-decoration-style: none;
+    font-size: 18px; 
 } 
 
 .nav a {
@@ -86,14 +88,14 @@ li:hover {
     font-size: 45px;
 } 
 
-.btn.clicked { 
-    backround-color: green; 
+.submit.clicked { 
+    background-color: red; 
     transition: background 1s linear; 
 } 
+
 /*========================================
   Clearfix
   ========================================*/
-
 .group:before,
 .group:after {
   content: "";

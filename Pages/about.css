@@ -22,6 +22,7 @@ body {
     font-family: 'Roboto', sans-serif;
 	font-weight: 100;
     position: relative;
+    overflow: hidden;
 } 
 
 .content-container { 
@@ -31,13 +32,10 @@ body {
 /*========================================
   Navigation Bar 
   ========================================*/
-li:hover { 
+.nav li:hover { 
     background-color: #117bff; 
     cursor: pointer; 
-    transition: background .7s linear; 
-    -webkit-transition: background .7s linear; 
-    -moz-transition: background .7s linear; 
-    -o-transition: background .7s linear; 
+    transition: background .4s linear; 
 } 
 
 .nav { 
@@ -53,21 +51,25 @@ li:hover {
     text-align: center; 
 } 
 
-.nav ul li { 
+.nav li { 
     display: inline-block; 
     font-family: 'Roboto', sans-serif; 
+    font-weight: 100;
     color: white; 
     list-style: none; 
     line-height: 80px; 
     height: 80px; 
     padding-left: 10px; 
     padding-right: 10px; 
+    text-decoration-style: none; 
+    font-size: 18px; 
 } 
 
 .nav a {
     text-decoration: none;  
     color: white;
 } 
+
 
 /*========================================
   About

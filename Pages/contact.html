@@ -54,7 +54,7 @@
                     <div class="col-md-6"> 
                         <img class="img-circle" src="http://noorimages.com/wp-content/uploads/2013/06/BOP067SE0116-888x592.jpg" width="530px" height="390px"/>
                     </div>
-                    <button class="btn btn-primary" type="submit" style="width:100%; margin-top: 20px;"> Send </button>
+                    <button class="submit btn btn-primary" type="submit" style="width:100%; margin-top: 20p"> Send </button>
                 </form>
             </div>
             </div>
@@ -62,8 +62,9 @@
         <script> 
             // To change the button on click 
             $(document).ready(function() { 
-                $(".btn").click(function() { 
-                    $(".btn").toggleClass("clicked"); 
+                $(".submit").click(function() { 
+                    console.log("Button click run"); 
+                    $(".submit").toggleClass("clicked"); 
                 }); 
             }); 
         </script>
