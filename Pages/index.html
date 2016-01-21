@@ -25,12 +25,12 @@
     </head>
     <body> 
         <!-- ============== JUMBOTRON ============== -->
-        <div class="jumbotron"> 
-            <div class="container"> 
-                <h1> MPA Cares </h1>
-                <p> A student organization to abolish slavery in the modern era </p>
+        <div class="jumbotron text-center">
+            <header>
+                <h1 class="title"> MPA Cares </h1>
+                <p class="desc"> A student organization to abolish slavery in the modern era </p>
                 <a class="jumbo-btn" href="about.html"> Learn More </a>
-            </div>
+            </header>
         </div>
         <!-- ============== RESPONSIVE NAVIGATION BAR ============== -->
         <div class="nav-btn">
@@ -57,6 +57,12 @@
         </div>
         <!-- ============== SCRIPTS ============== --> 
         <script type="text/javascript"> 
+            //Fade-in 
+            $(document).ready(function() {
+                $(".title").addClass("load"); 
+                $(".desc").addClass("load"); 
+                $(".jumbo-btn").addClass("load");
+            }); 
             // Nav Expander 
             $(document).ready(function(){
     	       $('.nav-btn').click(function(){
