@@ -97,6 +97,27 @@
                                 };
                         return user;
                     }
+                    
+                    // GOOGLE user authentication 
+                    function googleAdapter(auth) {
+                        var user = { 
+                                    name: auth.google.displayName || '', 
+                                    email: auth.google.email || '', 
+                                    picture: auth.google.profileImageURL || ''
+                                }; 
+                        return user;
+                    }
+                    
+                    // TWITTER user authentication 
+                    function twitterAdapter(auth) {
+                        var user = { 
+                                    name: auth.twitter.displayName || '', 
+                                    email: '', 
+                                    picture: auth.twitter.profileImageURL || ''
+                                };  
+                        return user;
+                    }
+                        
                     function saveUserData(provider, adapter) {
                         var ref = new Firebase("https://mpacares.firebaseio.com/");
                         ref.authWithOAuthPopup(provider, function (error) {
@@ -115,53 +136,19 @@
                             }
                         }, {scope: 'email'});  
                     }
+                    
                     $('#login-facebook').click(function () {
                         saveUserData('facebook', facebookAdapter);
                     });
                     
-                    // GOOGLE user authentication 
-                    $('#login-google').click(function () { 
-                        var ref = new Firebase("https://mpacares.firebaseio.com/");
-                        ref.authWithOAuthPopup("google", function (error, authData) {
-                            if (error) {
-                                console.error("Login Failed!", error);
-                            /* Ask Nate - what does "error" even mean? 
-                            How does the computer tell if an error has happened or not? */
-                            } else {
-                                var auth = ref.getAuth(); 
-                                console.log(ref.getAuth()); 
-                                var usersRef = ref.child('users').child(auth.uid);
-                                var user = { 
-                                    name: auth.google.displayName || '', 
-                                    email: auth.google.email || '', 
-                                    picture: auth.google.profileImageURL || ''
-                                }; 
-                                usersRef.set(user);
-                                console.log("Authenticated successfully with payload:", authData);
-                            }
-                        }, {scope: 'email'});
-                    }); 
+                    $('#login-google').click(function () {
+                        saveUserData('google', googleAdapterAdapter);
+                    });
                     
-                    // TWITTER user authentication 
-                    $('#login-twitter').click(function () { 
-                        var ref = new Firebase("https://mpacares.firebaseio.com");
-                        ref.authWithOAuthPopup("twitter", function(error, authData) {
-                            if (error) {
-                                console.error("Login Failed!", error);
-                            } else {
-                                console.log("Authenticated successfully with payload:", authData);
-                                var auth = ref.getAuth(); 
-                                console.log(ref.getAuth()); 
-                                var usersRef = ref.child('users').child(auth.uid);
-                                var user = { 
-                                    name: auth.twitter.displayName || '', 
-                                    email: '', 
-                                    picture: auth.twitter.profileImageURL || ''
-                                }; 
-                                usersRef.set(user);
-                            }         
-                        });
-                    }); 
+                    $('#login-twitter').click(function () {
+                        saveUserData('twitter', twitterAdapter);
+                    });
+                    
                 </script>
             </div>
             </div>
