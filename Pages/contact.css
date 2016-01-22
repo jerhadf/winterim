@@ -13,10 +13,9 @@ body {
 	font-weight: 100;
     position: relative;
     overflow: hidden;
-} 
-
-.container { 
-    margin-top: 15px; 
+    background-image: url(http://www.jeremyhadfield.com/wp-content/uploads/2016/01/low-poly-texture-26-1024x683.png);
+    background-size: cover; 
+    background-repeat: no-repeat; 
 } 
 
 p { 
@@ -122,8 +121,22 @@ p {
 /*========================================
   Contact 
   ========================================*/
-.contact { 
-    margin-top: 100px;
+.container { 
+    margin-top: 120px;
+    padding-left: 60px;
+    padding-right: 60px;
+    padding-bottom: 90px;
+    padding-top: 60px;
+    background-color: white;
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    opacity: 0;
+    margin-bottom: 50px;
+} 
+
+.container.fadein { 
+    opacity: 1; 
+    transition: opacity .3s ease-in; 
 } 
 
 @media screen and (max-width: 1000px) { 
@@ -139,6 +152,11 @@ p {
 .submit.clicked { 
     background-color: red; 
     transition: background 1s linear; 
+} 
+
+.img-circle { 
+    margin-bottom: 20px;
+    margin-top: 20px;
 } 
 
 /*========================================
