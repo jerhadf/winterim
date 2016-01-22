@@ -31,13 +31,60 @@ p {
 /*========================================
   Navigation Bar 
   ========================================*/
-li:hover { 
+
+/* ACCOUNT BAR */ 
+.account-txt { 
+    opacity: 0.6;
+    line-height: 85px;
+    margin-left: 6%;
+    position: fixed;
+    display: block; 
+    font-size: 16px;
+    float: left;
+    font-family: 'Roboto'; 
+    color: white;
+    font-weight: 300; 
+} 
+
+.account-txt:hover {
+    opacity: 1; 
+    cursor: pointer;
+    font-size: 17px;
+    transition: font .1s;
+}
+
+.account-txt.hover { 
+    opacity: 1; 
+    cursor: pointer;
+    font-size: 17px;
+    transition: font .1s;
+} 
+
+.account-img { 
+    opacity: 0.6;
+    position: fixed;
+    display: block; 
+    margin-top: 15px;
+    margin-left: 1.7%;
+    float: left; 
+    border-radius: 50%;
+} 
+
+.account-img:hover {
+    opacity: 1;
+    cursor: pointer;
+}
+
+.account-img.hover { 
+    opacity: 1;
+    cursor: pointer;
+} 
+
+/* NAVIGATION BAR */ 
+.nav li:hover { 
     background-color: #117bff; 
     cursor: pointer; 
-    transition: background .7s linear; 
-    -webkit-transition: background .7s linear; 
-    -moz-transition: background .7s linear; 
-    -o-transition: background .7s linear; 
+    transition: background .4s linear; 
 } 
 
 .nav { 
@@ -56,13 +103,14 @@ li:hover {
 .nav li { 
     display: inline-block; 
     font-family: 'Roboto', sans-serif; 
+    font-weight: 100;
     color: white; 
     list-style: none; 
     line-height: 80px; 
     height: 80px; 
     padding-left: 10px; 
     padding-right: 10px; 
-    text-decoration-style: none;
+    text-decoration-style: none; 
     font-size: 18px; 
 } 
 

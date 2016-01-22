@@ -28,6 +28,10 @@
     
 <body> 
     <div class="nav"> 
+            <div class="account">
+                <span class="account-txt"> Jeremy Hadfield </span>
+                <img src="http://static.independent.co.uk/s3fs-public/thumbnails/image/2013/01/24/12/v2-cute-cat-picture.jpg" class="account-img" width="50px" height="50px"/>
+            </div>
             <ul> 
                 <li> <a href="/"> HOME </a></li>
                 <li> <a href="about.html"> Understand the Problem </a> </li>
@@ -36,7 +40,7 @@
                 <li> <a href="campaigns.html">Current Campaigns </a></li>
                 <li> <a href="contact.html">Contact </a></li>
             </ul>
-        </div>
+    </div>
     <div class="container text-center campaigns"> 
         <div class="row fiveforfive expando1"> 
             <h1 class="title1"> 5 for 5 </h1>
@@ -144,7 +148,19 @@ $(function(expando2) {
         $(".container").toggleClass("expand"); 
         $(".title2").toggleClass("expand"); 
     }); 
-});     
+});
+    
+// For the account button 
+        $(document).ready(function() { 
+            $(".account-txt").hover(function() { 
+                $(".account-img").toggleClass("hover"); 
+                $(".account-txt").toggleClass("hover");
+            }); 
+            $(".account-img").hover(function() { 
+                $(".account-img").toggleClass("hover"); 
+                $(".account-txt").toggleClass("hover"); 
+            });
+        });
     
 </script>
     

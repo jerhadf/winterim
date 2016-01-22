@@ -122,8 +122,70 @@ a {
 /*========================================
   Navigation Bar 
   ========================================*/
-.admin-btn { 
-    background-color: red;
+
+/* ACCOUNT BAR */ 
+.account-txt { 
+    opacity: 0.6;
+    line-height: 100px;
+    margin-left: 6%;
+    position: fixed;
+    display: block; 
+    font-size: 16px;
+    float: left;
+    font-family: 'Roboto'; 
+    color: white;
+    font-weight: 300; 
+} 
+
+.account-txt:hover {
+    opacity: 1; 
+    cursor: pointer;
+    font-size: 17px;
+    transition: font .1s;
+}
+
+.account-txt.hover { 
+    opacity: 1; 
+    cursor: pointer;
+    font-size: 17px;
+    transition: font .2s;
+} 
+
+.account-img { 
+    opacity: 0.6;
+    position: fixed;
+    display: block; 
+    margin-top: 1.7%; 
+    margin-left: 1.7%;
+    float: left; 
+    border-radius: 50%;
+} 
+
+.account-img:hover {
+    opacity: 1;
+    cursor: pointer;
+}
+
+.account-img.hover { 
+    opacity: 1;
+    cursor: pointer;
+} 
+
+/* NAVIGATION BAR */ 
+.nav {
+    top: 0; 
+    right: 0; 
+    width: 100%;
+    position: fixed; 
+    opacity: 0; 
+    transition: opacity .3s ease-in; 
+    font-family: sans-serif; 
+    text-decoration: none; 
+    background-color: black; 
+}
+
+.nav.expand { 
+    opacity: 1; 
 } 
 
 .nav-btn {
@@ -191,23 +253,6 @@ a {
     display: block; 
 } 
 
-.nav {
-    top: 0; 
-    right: 0; 
-    width: 100%;
-    position: fixed; 
-    opacity: 0; 
-    transition: opacity .3s ease-in; 
-    font-family: sans-serif; 
-    text-decoration: none; 
-    background-color: black; 
-}
-
-.nav.expand { 
-    opacity: 1; 
-    /* transition: opacity .3s ease-in; */ 
-} 
-
 .nav ul { 
     margin-left: 25%;
 } 
@@ -226,7 +271,7 @@ li:hover {
 .nav a { 
     font-family: 'Roboto', sans-serif; 
     color: white; 
-    list-style: none; 
+    list-style: none;  
     line-height: 100px; 
     height: 100px; 
     padding-left: 10px; 
