@@ -122,6 +122,10 @@ a {
 /*========================================
   Navigation Bar 
   ========================================*/
+.admin-btn { 
+    background-color: red;
+} 
+
 .nav-btn {
     position: fixed;
     left: 94.6%; 
@@ -189,6 +193,10 @@ a {
 } 
 
 .nav {
+    top: 0; 
+    right: 0; 
+    width: 100%;
+    position: fixed; 
     opacity: 0; 
     transition: opacity .3s ease-in; 
     font-family: sans-serif; 
@@ -199,10 +207,6 @@ a {
 .nav.expand { 
     opacity: 1; 
     /* transition: opacity .3s ease-in; */ 
-    position: fixed; 
-    top: 0; 
-    right: 0; 
-    width: 100%;
 } 
 
 .nav ul { 

@@ -89,7 +89,6 @@
                 </form>
                 <script> 
                     // FACEBOOOK user authentication 
-                    
                     function facebookAdapter(auth) {
                         var user = {
                                     name: auth.facebook.displayName || '',
@@ -99,14 +98,15 @@
                         return user;
                     }
                     function saveUserData(provider, adapter) {
-                        myDataRef.authWithOAuthPopup(provider, function (error) {
+                        var ref = new Firebase("https://mpacares.firebaseio.com/");
+                        ref.authWithOAuthPopup(provider, function (error) {
                             if (error) {
                                 console.error(error);
                             } else {
-                                var auth = myDataRef.getAuth();
-                                console.log(myDataRef.getAuth());
+                                var auth = ref.getAuth();
+                                console.log(ref.getAuth());
                                 var user = adapter(auth);
-                                var usersRef = myDataRef.child('users').child(auth.uid);
+                                var usersRef = ref.child('users').child(auth.uid);
                                 usersRef.set(user, function(error) {
                                     if (error) {
                                         console.error(error);

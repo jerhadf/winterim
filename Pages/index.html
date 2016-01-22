@@ -46,6 +46,7 @@
             </div>
         </div>
         <div class="nav"> 
+            <div id="admin-btn"></div>
             <ul> 
                 <li> <a href="/"> HOME </a></li>
                 <li> <a href="about.html"> Understand the Problem </a> </li>
@@ -57,6 +58,43 @@
         </div>
         <!-- ============== SCRIPTS ============== --> 
         <script type="text/javascript"> 
+            $(document).ready(function() { 
+                var ref = new Firebase("https://mpacares.firebaseio.com/");
+                ref.onAuth(function (auth) {
+                    if (auth) {
+                        // logged in
+                        
+                        var userRef = ref.child('users').child(auth.uid);
+                        userRef.on('value', function (snap) {
+                            var user = snap.val(); 
+                            if (user) {
+                                // TODO: set the user image src to user.picture
+                            } else {
+                                // TODO: hide the user image
+                            }
+                        }, function (error) {
+                            console.log(error);
+                        });
+
+                        var adminRef = ref.child('admins').child(auth.uid);
+                        adminRef.on('value', function (snap) {
+                            var user = snap.val(); 
+                            if (user) {
+                                console.log("You're an admin!");
+                                // enable admin button
+                            } else {
+                                console.log("Sorry, no access for you.");
+                                // disable admin button
+                            }
+                        }, function (error) {
+                            console.log(error);
+                        });
+                    } else {
+                        // logged out
+                    }
+                });
+            });
+            
             //Fade-in 
             $(document).ready(function() {
                 $(".title").addClass("load"); 
