@@ -92,6 +92,26 @@
             $(document).ready(function() { 
                 $(".container").toggleClass("fadein"); 
             });  
+            
+            // User displayer (changes the image and text to the current user)
+            $(document).ready(function() { 
+                var ref = new Firebase("https://mpacares.firebaseio.com/");
+                var user = ref.getAuth(); 
+                console.log(user); 
+                var userRef = ref.child('users').child(user.uid); 
+                userRef.once("value", function(snap) { 
+                    var user = snap.val(); 
+                    console.log(user); 
+                    console.log(user.name);
+                    console.log(user.picture); 
+                    console.log(user.email); 
+                    var userName = user.name; 
+                    var userPicURL = user.picture; 
+                    var userEmail = user.email; 
+                    $(".account-txt").replaceWith("<span class='account-txt'>" + userName + "</span>");
+                    $(".account-img").attr("src", userPicURL); 
+                });  
+            }); 
         </script>
     </body> 
 </html> 

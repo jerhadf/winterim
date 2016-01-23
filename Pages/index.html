@@ -13,7 +13,6 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">   </script>
         <!-- Bootstrap CSS & JS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-        <script src="js/bootstrap.min.js"></script>
         <!-- Flat UI Bootstrap --> 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flat-ui/2.2.2/css/flat-ui.min.css"> 
         <!-- Font Awesome Bootstrap CDN --> 
@@ -66,73 +65,92 @@
         <!-- ============== SCRIPTS ============== --> 
         <script type="text/javascript"> 
             
-        // ACCOUNT checker 
-            $(document).ready(function() { 
-                var ref = new Firebase("https://mpacares.firebaseio.com/");
-                ref.onAuth(function (auth) {
-                    if (auth) {
-                        // logged in
-                        
-                        var userRef = ref.child('users').child(auth.uid);
-                        userRef.on('value', function (snap) {
-                            var user = snap.val(); 
-                            if (user) {
-                                $(".account-img").attr("src"); 
-                            } else {
-                                // TODO: hide the user image
-                            }
-                        }, function (error) {
-                            console.log(error);
-                        });
+        //ACCOUNT CHECKER
+        $(document).ready(function() { 
+            var ref = new Firebase("https://mpacares.firebaseio.com/");
+            ref.onAuth(function (auth) {
+                if (auth) {
+                    var userRef = ref.child('users').child(auth.uid);
+                    userRef.on('value', function (snap) {
+                        var user = snap.val(); 
+                        if (user) {
+                            // TODO: set the user image src to user.picture
+                        } else {
+                            // TODO: hide the user image
+                        }
+                    }, function (error) {
+                        console.log(error);
+                    });
 
-                        var adminRef = ref.child('admins').child(auth.uid);
-                        adminRef.on('value', function (snap) {
-                            var user = snap.val(); 
-                            if (user) {
-                                console.log("You're an admin!");
-                                // enable admin button
-                            } else {
-                                console.log("Sorry, no access for you.");
-                                // disable admin button
-                            }
-                        }, function (error) {
-                            console.log(error);
-                        });
-                    } else {
-                        // logged out
-                    }
-                });
+                    var adminRef = ref.child('admins').child(auth.uid);
+                    adminRef.on('value', function (snap) {
+                        var user = snap.val(); 
+                        if (user) {
+                            console.log("You're an admin!");
+                            // enable admin button
+                        } else {
+                            console.log("Sorry, no access for you.");
+                            // disable admin button
+                        }
+                    }, function (error) {
+                        console.log(error);
+                    });
+                } else {
+                    // logged out
+                }
             });
+        });
             
-            // For the account button 
-            $(document).ready(function() { 
-                $(".account-txt").hover(function() { 
-                    $(".account-img").toggleClass("hover"); 
-                    $(".account-txt").toggleClass("hover");
-                }); 
-                $(".account-img").hover(function() { 
-                    $(".account-img").toggleClass("hover"); 
-                    $(".account-txt").toggleClass("hover"); 
-                });
+
+        // For the account button 
+        $(document).ready(function() { 
+            $(".account-txt").hover(function() { 
+                $(".account-img").toggleClass("hover"); 
+                $(".account-txt").toggleClass("hover");
             }); 
+            $(".account-img").hover(function() { 
+                $(".account-img").toggleClass("hover"); 
+                $(".account-txt").toggleClass("hover"); 
+            });
+        }); 
+
+        //Fade-in 
+        $(document).ready(function() {
+            $(".title").addClass("load"); 
+            $(".desc").addClass("load"); 
+            $(".jumbo-btn").addClass("load");
+        }); 
+
+        // Nav Expander 
+        $(document).ready(function(){
+           $('.nav-btn').click(function(){
+               $('.nav').toggleClass('expand'); 
+               $('.nav-btn').toggleClass('new'); 
+               $(".bar").toggleClass("none");
+               $(".newbar").toggleClass("white"); 
+               $(".jumbocontainer").toggleClass("fade");
+            }); 
+        }); 
             
-            //Fade-in 
-            $(document).ready(function() {
-                $(".title").addClass("load"); 
-                $(".desc").addClass("load"); 
-                $(".jumbo-btn").addClass("load");
-            }); 
-            
-            // Nav Expander 
-            $(document).ready(function(){
-    	       $('.nav-btn').click(function(){
-    	           $('.nav').toggleClass('expand'); 
-                   $('.nav-btn').toggleClass('new'); 
-                   $(".bar").toggleClass("none");
-                   $(".newbar").toggleClass("white"); 
-                   $(".jumbocontainer").toggleClass("fade");
-                }); 
-            }); 
+        // User displayer (changes the image and text to the current user)
+        $(document).ready(function() { 
+            var ref = new Firebase("https://mpacares.firebaseio.com/");
+            var user = ref.getAuth(); 
+            console.log(user); 
+            var userRef = ref.child('users').child(user.uid); 
+            userRef.once("value", function(snap) { 
+                var user = snap.val(); 
+                console.log(user); 
+                console.log(user.name);
+                console.log(user.picture); 
+                console.log(user.email); 
+                var userName = user.name; 
+                var userPicURL = user.picture; 
+                var userEmail = user.email; 
+                $(".account-txt").replaceWith("<span class='account-txt'>" + userName + "</span>");
+                $(".account-img").attr("src", userPicURL); 
+            });  
+        }); 
         </script>
     </body>
 </html>

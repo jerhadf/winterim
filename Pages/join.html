@@ -13,7 +13,6 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">   </script>
         <!-- Bootstrap CSS & JS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-        <script src="js/bootstrap.min.js"></script>
         <!-- Flat UI Bootstrap --> 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flat-ui/2.2.2/css/flat-ui.min.css"> 
         <!-- Font Awesome Bootstrap CDN --> 
@@ -96,80 +95,119 @@
                     </div>
                 </form>
                 <script> 
-                    // FACEBOOOK user authentication 
-                    function facebookAdapter(auth) {
-                        var user = {
-                                    name: auth.facebook.displayName || '',
-                                    email: auth.facebook.email || '', 
-                                    picture: auth.facebook.profileImageURL || ''
-                                };
-                        return user;
-                    }
+// FACEBOOOK user authentication 
+function facebookAdapter(auth) {
+    var user = {
+                name: auth.facebook.displayName || '',
+                email: auth.facebook.email || '', 
+                picture: auth.facebook.profileImageURL || ''
+    };
+    return user;
+}
+
+// GOOGLE user authentication 
+function googleAdapter(auth) {
+    var user = { 
+        name: auth.google.displayName || '', 
+        email: auth.google.email || '', 
+        picture: auth.google.profileImageURL || ''
+    }; 
+    return user;
+}
+
+// TWITTER user authentication 
+function twitterAdapter(auth) {
+    var user = { 
+        name: auth.twitter.displayName || '', 
+        email: '', 
+        picture: auth.twitter.profileImageURL || ''
+    };  
+    return user;
+}
+
+// Saves user data to firebase 
+// *** This also changes account-img and account-txt to current user data 
+function saveUserData(provider, adapter) {
+    var ref = new Firebase("https://mpacares.firebaseio.com/");
+    ref.authWithOAuthPopup(provider, function (error) {
+        if (error) {
+            console.error(error);
+        } else {
+            var auth = ref.getAuth();
+            console.log(ref.getAuth());
+            var user = adapter(auth);
+            var usersRef = ref.child('users').child(auth.uid);
+            usersRef.set(user, function(error) {
+                if (error) {
+                    console.error(error);
+                }
+            // The following code changes the account-img and account-txt
+            var ref = new Firebase("https://mpacares.firebaseio.com/");
+            var user = ref.getAuth(); 
+            console.log(user); 
+            var userRef = ref.child('users').child(user.uid); 
+            userRef.once("value", function(snap) { 
+                var user = snap.val(); 
+                console.log(user); 
+                console.log(user.name);
+                console.log(user.picture); 
+                console.log(user.email); 
+                var userName = user.name; 
+                var userPicURL = user.picture; 
+                var userEmail = user.email; 
+                $(".account-txt").replaceWith("<span class='account-txt'>" + userName + "</span>");
+                $(".account-img").attr("src", userPicURL); 
+            });  
+            });
+        }
+    }, {scope: 'email'});  
+}
+
+$('#login-facebook').click(function () {
+    saveUserData('facebook', facebookAdapter);
+});
+
+$('#login-google').click(function () {
+    saveUserData('google', googleAdapter);
+});
+
+$('#login-twitter').click(function () {
+    saveUserData('twitter', twitterAdapter);
+});
+
+// User displayer (changes the image and text to the current user)
+/* This function runs twice to ensure that users that sign up 
+and then leave the page will still have their account displayed */ 
+$(document).ready(function() { 
+    var ref = new Firebase("https://mpacares.firebaseio.com/");
+    var user = ref.getAuth(); 
+    console.log(user); 
+    var userRef = ref.child('users').child(user.uid); 
+    userRef.once("value", function(snap) { 
+        var user = snap.val(); 
+        console.log(user); 
+        console.log(user.name);
+        console.log(user.picture); 
+        console.log(user.email); 
+        var userName = user.name; 
+        var userPicURL = user.picture; 
+        var userEmail = user.email; 
+        $(".account-txt").replaceWith("<span class='account-txt'>" + userName + "</span>");
+        $(".account-img").attr("src", userPicURL); 
+    });  
+}); 
                     
-                    // GOOGLE user authentication 
-                    function googleAdapter(auth) {
-                        var user = { 
-                                    name: auth.google.displayName || '', 
-                                    email: auth.google.email || '', 
-                                    picture: auth.google.profileImageURL || ''
-                                }; 
-                        return user;
-                    }
-                    
-                    // TWITTER user authentication 
-                    function twitterAdapter(auth) {
-                        var user = { 
-                                    name: auth.twitter.displayName || '', 
-                                    email: '', 
-                                    picture: auth.twitter.profileImageURL || ''
-                                };  
-                        return user;
-                    }
-                    
-                    // User Data-saver 
-                    function saveUserData(provider, adapter) {
-                        var ref = new Firebase("https://mpacares.firebaseio.com/");
-                        ref.authWithOAuthPopup(provider, function (error) {
-                            if (error) {
-                                console.error(error);
-                            } else {
-                                var auth = ref.getAuth();
-                                console.log(ref.getAuth());
-                                var user = adapter(auth);
-                                var usersRef = ref.child('users').child(auth.uid);
-                                usersRef.set(user, function(error) {
-                                    if (error) {
-                                        console.error(error);
-                                    }
-                                });
-                            }
-                        }, {scope: 'email'});  
-                    }
-                    
-                    $('#login-facebook').click(function () {
-                        saveUserData('facebook', facebookAdapter);
-                    });
-                    
-                    $('#login-google').click(function () {
-                        saveUserData('google', googleAdapter);
-                    });
-                    
-                    $('#login-twitter').click(function () {
-                        saveUserData('twitter', twitterAdapter);
-                    });
-                    
-            // For the account button 
-            $(document).ready(function() { 
-                $(".account-txt").hover(function() { 
-                    $(".account-img").toggleClass("hover"); 
-                    $(".account-txt").toggleClass("hover");
-                }); 
-                $(".account-img").hover(function() { 
-                    $(".account-img").toggleClass("hover"); 
-                    $(".account-txt").toggleClass("hover"); 
-                });
-            }); 
-                    
+// For the account button 
+$(document).ready(function() { 
+    $(".account-img").hover(function() { 
+        $(".account-img").toggleClass("hover"); 
+        $(".account-txt").toggleClass("hover"); 
+    });
+    $(".account-img").hover(function() { 
+        $(".account-img").toggleClass("hover"); 
+        $(".account-txt").toggleClass("hover"); 
+    }); 
+}); 
                 </script>
             </div>
             </div>

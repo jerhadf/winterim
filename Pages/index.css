@@ -140,15 +140,11 @@ a {
 .account-txt:hover {
     opacity: 1; 
     cursor: pointer;
-    font-size: 17px;
-    transition: font .1s;
 }
 
 .account-txt.hover { 
     opacity: 1; 
     cursor: pointer;
-    font-size: 17px;
-    transition: font .2s;
 } 
 
 .account-img { 
