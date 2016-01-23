@@ -37,15 +37,60 @@ p {
     line-height: 2px; 
     color: black; 
 } 
-
 /*========================================
   Navigation Bar 
   ========================================*/
 
 /* ACCOUNT BAR */ 
+.account-menu {
+    opacity: 0;
+    display: inline-block; 
+    position: fixed;
+    left: 25px;
+    background-color: black;
+    color: white; 
+    font-weight: 100;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    padding-left: 60px;
+    padding-right: 60px;
+    width: 200px;
+    transition: margin .3s ease-in, opacity .2s linear;
+} 
+
+.account-menu.show {
+    opacity: .9; 
+    margin-top: 100px;
+    transition: margin .3s ease-in, opacity .6s linear;
+} 
+
+.account-menu span { 
+    width: 100%;
+    margin-bottom: 14px;
+    margin-top: 14px;
+    padding-bottom: 3px; 
+    padding-top: 3px;
+    padding-right: 5px;
+    padding-left: 5px;
+} 
+
+.account-menu span:hover { 
+    cursor: pointer;
+    background-color: rgba(17,123,255,.5);
+    transition: background .2s linear; 
+} 
+
+.admin-btn {
+    display: none; 
+} 
+
+.admin-btn.show { 
+    display: inline-block;
+} 
+
 .account-txt { 
     opacity: 0.6;
-    line-height: 85px;
+    line-height: 100px;
     margin-left: 6%;
     position: fixed;
     display: block; 
@@ -59,22 +104,18 @@ p {
 .account-txt:hover {
     opacity: 1; 
     cursor: pointer;
-    font-size: 17px;
-    transition: font .1s;
 }
 
 .account-txt.hover { 
     opacity: 1; 
     cursor: pointer;
-    font-size: 17px;
-    transition: font .1s;
 } 
 
 .account-img { 
     opacity: 0.6;
     position: fixed;
     display: block; 
-    margin-top: 15px;
+    margin-top: 1.7%; 
     margin-left: 1.7%;
     float: left; 
     border-radius: 50%;
@@ -91,43 +132,112 @@ p {
 } 
 
 /* NAVIGATION BAR */ 
-.nav li:hover { 
-    background-color: #117bff; 
-    cursor: pointer; 
-    transition: background .4s linear; 
+.nav {
+    top: 0; 
+    right: 0; 
+    width: 100%;
+    position: fixed; 
+    opacity: 0; 
+    transition: opacity .3s ease-in; 
+    font-family: sans-serif; 
+    text-decoration: none; 
+    background-color: black; 
+}
+
+.nav.expand { 
+    opacity: 1; 
 } 
 
-.nav { 
-    background-color: black;
-    height: 80px; 
-    width: 100%; 
+.nav-btn {
     position: fixed;
-    top: 0;
-    z-index:2; 
+    left: 94.6%; 
+    top: 2%; 
+    margin-top: .5em;
+    margin-right: .5em;
+    z-index: 99;
+    border: 2px solid white; 
+    border-radius: 4px; 
+    background-color: white; 
+    width: 54px;
+    height: 54px; 
+}
+
+.nav-btn:hover { 
+    cursor: pointer; 
+} 
+
+.nav-btn.new {
+    background-color: black; 
+    border-color: black; 
+    transition: opacity 2s linear;
+} 
+
+.bars { 
+    position: relative; 
+    top: 40%; 
+    transform: translateY(-50%); 
+    padding-bottom: .1px;
+} 
+
+.bar {
+    position: relative;  
+    display: block;
+    background-color: black; 
+    width: 40px; 
+    height: 6px; 
+    margin: auto;
+    margin-top: 6.5px; 
+    margin-bottom: 5px;
+    border: 3px solid black; 
+    border-radius: 2px; 
+} 
+
+.bar.none { 
+    display: none; 
+} 
+
+.newbar { 
+    display: none; 
+    position: relative;  
+    width: 40px; 
+    height: 6px; 
+    margin: auto;
+    margin-top: 6.5px; 
+    margin-bottom: 5px;
+    border: 3px solid white; 
+    border-radius: 2px; 
+    background-color: white; 
+} 
+
+.newbar.white { 
+    display: block; 
 } 
 
 .nav ul { 
-    text-align: center; 
+    margin-left: 25%;
 } 
 
 .nav li { 
-    display: inline-block; 
-    font-family: 'Roboto', sans-serif; 
-    font-weight: 100;
-    color: white; 
-    list-style: none; 
-    line-height: 80px; 
-    height: 80px; 
-    padding-left: 10px; 
-    padding-right: 10px; 
-    text-decoration-style: none; 
-    font-size: 18px; 
+    float: left; 
+    display: inline-block;
 } 
 
-.nav a {
-    text-decoration: none;  
-    color: white;
+li:hover { 
+    background-color: #117bff; 
+    cursor: pointer; 
+    transition: background .7s linear; 
 } 
+
+.nav a { 
+    font-family: 'Roboto', sans-serif; 
+    color: white; 
+    list-style: none;  
+    line-height: 100px; 
+    height: 100px; 
+    padding-left: 10px; 
+    padding-right: 10px; 
+} 
+
 
 /*========================================
   Clearfix

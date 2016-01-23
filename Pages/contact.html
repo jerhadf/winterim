@@ -29,8 +29,13 @@
     </head>
     <body> 
         <div class="nav"> 
+            <div class="account-menu">
+                <span id="account-logout"> Log out </span><br> 
+                <span id="account-userinfo"> User info </span>
+                <span id="admin-btn"> Admin </span>
+            </div>
             <div class="account">
-                <span class="account-txt"> Jeremy Hadfield </span>
+                <span class="account-txt" id="account-txt"> Jeremy Hadfield </span>
                 <img src="http://static.independent.co.uk/s3fs-public/thumbnails/image/2013/01/24/12/v2-cute-cat-picture.jpg" class="account-img" width="50px" height="50px"/>
             </div>
             <ul> 
@@ -42,6 +47,7 @@
                 <li> <a href="contact.html">Contact </a></li>
             </ul>
         </div>
+        <div class="submit-confirm"><i class="fa fa-check fa-2x"></i> Message sent! </div>
         <div class="container">
             <div class="row"> 
             <div class="contact">
@@ -62,56 +68,102 @@
                     <div class="col-md-6"> 
                         <img class="img-circle" src="http://noorimages.com/wp-content/uploads/2013/06/BOP067SE0116-888x592.jpg" width="530px" height="390px"/>
                     </div>
-                    <button class="submit btn btn-primary" type="submit" style="width:100%; margin-top: 20p"> Send </button>
+                    <div class="submit-btn submit btn btn-primary" type="submit" style="width:100%; margin-top: 20p"> Send </div>
                 </form>
             </div>
             </div>
         </div>
         <script> 
-            // To change the button on click 
-            $(document).ready(function() { 
-                $(".submit").click(function() { 
-                    console.log("Button click run"); 
-                    $(".submit").toggleClass("clicked"); 
-                }); 
-            }); 
-            
-            // For the account button 
-            $(document).ready(function() { 
-                $(".account-txt").hover(function() { 
-                    $(".account-img").toggleClass("hover"); 
-                    $(".account-txt").toggleClass("hover");
-                }); 
-                $(".account-img").hover(function() { 
-                    $(".account-img").toggleClass("hover"); 
-                    $(".account-txt").toggleClass("hover"); 
-                });
+//Fade-in
+$(document).ready(function() { 
+    $(".container").toggleClass("fadein"); 
+});  
+
+//ACCOUNT CHECKER
+$(document).ready(function() { 
+    var ref = new Firebase("https://mpacares.firebaseio.com/");
+    ref.onAuth(function (auth) {
+        if (auth) {
+            var userRef = ref.child('users').child(auth.uid);
+            userRef.on('value', function (snap) {
+                var user = snap.val(); 
+                if (user) {
+                    $(document).ready(function() { 
+                        var ref = new Firebase("https://mpacares.firebaseio.com/");
+                        var user = ref.getAuth(); 
+                        console.log(user); 
+                        var userRef = ref.child('users').child(user.uid); 
+                        userRef.once("value", function(snap) { 
+                            var user = snap.val(); 
+                            console.log(user); 
+                            console.log(user.name);
+                            console.log(user.picture); 
+                            console.log(user.email); 
+                            var userName = user.name; 
+                            var userPicURL = user.picture; 
+                            var userEmail = user.email; 
+                            document.getElementById("account-txt").innerHTML = user.name; 
+                            $(".account-img").attr("src", userPicURL); 
+                        });  
+                    });
+                } else {
+                    $(".account-txt").hide(); 
+                    $(".account-img").hide(); 
+                }
+            }, function (error) {
+                console.log(error);
             });
+
+            var adminRef = ref.child('admins').child(auth.uid);
+            adminRef.on('value', function (snap) {
+                var user = snap.val(); 
+                if (user) {
+                    console.log("You're an admin!");
+                    $(".admin-btn").toggleClass("show"); 
+                } else {
+                    console.log("You're not an admin.");
+                    // Admin-btn is not visible (by default). 
+                }
+            }, function (error) {
+                console.log(error);
+            });
+        } else {
+            // logged out
+        }
+    });
+});
+
+// For the account button 
+$(document).ready(function() { 
+    $(".account-txt").click(function() { 
+        $(".account-menu").toggleClass("show"); 
+        $(".account-img").toggleClass("hover"); 
+        $(".account-txt").toggleClass("hover");
+    });
+    $(".account-img").click(function() { 
+        $(".account-menu").toggleClass("show"); 
+        $(".account-img").toggleClass("hover"); 
+        $(".account-txt").toggleClass("hover");
+    }); 
+    $(".account-txt").hover(function() { 
+        $(".account-img").toggleClass("hover"); 
+        $(".account-txt").toggleClass("hover");
+    });
+    $(".account-img").hover(function() { 
+        $(".account-img").toggleClass("hover"); 
+        $(".account-txt").toggleClass("hover");
+    }); 
+}); 
             
-            //Fade-in 
-            $(document).ready(function() { 
-                $(".container").toggleClass("fadein"); 
-            });  
-            
-            // User displayer (changes the image and text to the current user)
-            $(document).ready(function() { 
-                var ref = new Firebase("https://mpacares.firebaseio.com/");
-                var user = ref.getAuth(); 
-                console.log(user); 
-                var userRef = ref.child('users').child(user.uid); 
-                userRef.once("value", function(snap) { 
-                    var user = snap.val(); 
-                    console.log(user); 
-                    console.log(user.name);
-                    console.log(user.picture); 
-                    console.log(user.email); 
-                    var userName = user.name; 
-                    var userPicURL = user.picture; 
-                    var userEmail = user.email; 
-                    $(".account-txt").replaceWith("<span class='account-txt'>" + userName + "</span>");
-                    $(".account-img").attr("src", userPicURL); 
-                });  
-            }); 
+// THE DECEIVER (makes people think they've submitted a message) 
+$(document).ready(function() { 
+    $(".submit-btn").click(function() { 
+        $(".submit-confirm").addClass("confirmed"); 
+        setTimeout(function () {
+            $(".submit-confirm").removeClass("confirmed");
+        }, 2000); 
+    }); 
+});
         </script>
     </body> 
 </html> 

@@ -32,6 +32,55 @@ p {
   ========================================*/
 
 /* ACCOUNT BAR */ 
+.account-menu {
+    opacity: 0;
+    display: inline-block; 
+    position: fixed;
+    left: 15px;
+    background-color: black;
+    color: white; 
+    font-weight: 100;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    padding-left: 60px;
+    padding-right: 60px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 200px;
+    transition: margin .3s ease-in, opacity .2s linear;
+} 
+
+.account-menu.show {
+    opacity: .9; 
+    margin-top: 100px;
+    transition: margin .3s ease-in, opacity .6s linear;
+} 
+
+.account-menu span { 
+    width: 100%;
+    margin-bottom: 14px;
+    margin-top: 14px;
+    padding-bottom: 3px; 
+    padding-top: 3px;
+    padding-right: 5px;
+    padding-left: 5px;
+} 
+
+.account-menu span:hover { 
+    cursor: pointer;
+    background-color: rgba(17,123,255,.5);
+    transition: background .2s linear; 
+} 
+
+.admin-btn {
+    display: none; 
+} 
+
+.admin-btn.show { 
+    display: inline-block;
+} 
+
+/* End the account-expand classes */ 
 .account-txt { 
     opacity: 0.6;
     line-height: 85px;
@@ -59,7 +108,7 @@ p {
     opacity: 0.6;
     position: fixed;
     display: block; 
-    margin-top: 15px;
+    margin-top: 1.2%; 
     margin-left: 1.7%;
     float: left; 
     border-radius: 50%;
@@ -114,6 +163,8 @@ p {
     color: white;
 } 
 
+
+
 /*========================================
   Contact 
   ========================================*/
@@ -153,6 +204,29 @@ p {
 .img-circle { 
     margin-bottom: 20px;
     margin-top: 20px;
+} 
+
+.submit-confirm {
+    position: fixed; 
+    left: 195px;
+    opacity: 0;
+    background-color: limegreen; 
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 5px;
+    color: white;
+    font-weight: 100px;
+    font-family: 'Open Sans', sans-serif;
+    line-height: 50px;
+    transition: opacity .3s ease-in, margin .3s ease-in;
+} 
+
+.submit-confirm.confirmed {
+    opacity: .55; 
+    margin-top: 18px;
+    transition: opacity .3s ease-in, margin .3s ease-in; 
 } 
 
 /*========================================
