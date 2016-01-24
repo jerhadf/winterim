@@ -55,8 +55,8 @@
                 <span id="admin-btn"> Admin </span>
             </div>
             <div class="account">
-                <span class="account-txt" id="account-txt"> Jeremy Hadfield </span>
-                <img src="http://static.independent.co.uk/s3fs-public/thumbnails/image/2013/01/24/12/v2-cute-cat-picture.jpg" class="account-img" width="50px" height="50px"/>
+                <span class="account-txt" id="account-txt"> Not logged in </span>
+                <img src="http://www.webassist.com/account/attachments/1/cache/images/account/crop/generic-avatar_w288_h288/generic-avatar_03161254.png" class="account-img" width="50px" height="50px"/>
             </div>
             <ul> 
                 <li> <a href="/"> HOME </a></li>
@@ -110,7 +110,7 @@
                         var user = snap.val(); 
                         if (user) {
                             console.log("You're an admin!");
-                            $(".admin-btn").toggleClass("show"); 
+                            $("#admin-btn").toggleClass("show"); 
                         } else {
                             console.log("You're not an admin.");
                             // Admin-btn is not visible (by default). 
@@ -144,6 +144,14 @@
                 $(".account-img").toggleClass("hover"); 
                 $(".account-txt").toggleClass("hover");
             }); 
+            $("#account-logout").click(function() { 
+                var ref = new Firebase("https://mpacares.firebaseio.com/");
+                console.log("it worked"); 
+                ref.unauth();
+                document.getElementById("account-txt").innerHTML = "Not logged in.";
+                var userPicURL = "http://www.webassist.com/account/attachments/1/cache/images/account/crop/generic-avatar_w288_h288/generic-avatar_03161254.png"; 
+                $(".account-img").attr("src", userPicURL);
+            }); 
         }); 
 
         //Fade-in 
@@ -162,8 +170,7 @@
                $(".newbar").toggleClass("white"); 
                $(".jumbocontainer").toggleClass("fade");
             }); 
-        }); 
-            
+        });    
         </script>
     </body>
 </html>

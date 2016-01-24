@@ -35,8 +35,8 @@
                 <span id="admin-btn"> Admin </span>
             </div>
             <div class="account">
-                <span class="account-txt" id="account-txt"> Jeremy Hadfield </span>
-                <img src="http://static.independent.co.uk/s3fs-public/thumbnails/image/2013/01/24/12/v2-cute-cat-picture.jpg" class="account-img" width="50px" height="50px"/>
+                <span class="account-txt" id="account-txt"> Not logged in </span>
+                <img src="http://www.webassist.com/account/attachments/1/cache/images/account/crop/generic-avatar_w288_h288/generic-avatar_03161254.png" class="account-img" width="50px" height="50px"/>
             </div>
             <ul> 
                 <li> <a href="/"> HOME </a></li>
@@ -51,82 +51,91 @@
             <div class="infographic"><img src="https://lindahourihan.files.wordpress.com/2014/02/human-trafficking-visualized1.jpg" alt="infographic" width="100%"></div> 
         </div>
         <script type="text/javascript"> 
+            
+        //ACCOUNT CHECKER
+        $(document).ready(function() { 
+            var ref = new Firebase("https://mpacares.firebaseio.com/");
+            ref.onAuth(function (auth) {
+                if (auth) {
+                    var userRef = ref.child('users').child(auth.uid);
+                    userRef.on('value', function (snap) {
+                        var user = snap.val(); 
+                        if (user) {
+                            $(document).ready(function() { 
+                                var ref = new Firebase("https://mpacares.firebaseio.com/");
+                                var user = ref.getAuth(); 
+                                console.log(user); 
+                                var userRef = ref.child('users').child(user.uid); 
+                                userRef.once("value", function(snap) { 
+                                    var user = snap.val(); 
+                                    console.log(user); 
+                                    console.log(user.name);
+                                    console.log(user.picture); 
+                                    console.log(user.email); 
+                                    var userName = user.name; 
+                                    var userPicURL = user.picture; 
+                                    var userEmail = user.email; 
+                                    document.getElementById("account-txt").innerHTML = user.name; 
+                                    $(".account-img").attr("src", userPicURL); 
+                                });  
+                            });
+                        } else {
+                            $(".account-txt").hide(); 
+                            $(".account-img").hide(); 
+                        }
+                    }, function (error) {
+                        console.log(error);
+                    });
 
-//ACCOUNT CHECKER
-$(document).ready(function() { 
-    var ref = new Firebase("https://mpacares.firebaseio.com/");
-    ref.onAuth(function (auth) {
-        if (auth) {
-            var userRef = ref.child('users').child(auth.uid);
-            userRef.on('value', function (snap) {
-                var user = snap.val(); 
-                if (user) {
-                    $(document).ready(function() { 
-                        var ref = new Firebase("https://mpacares.firebaseio.com/");
-                        var user = ref.getAuth(); 
-                        console.log(user); 
-                        var userRef = ref.child('users').child(user.uid); 
-                        userRef.once("value", function(snap) { 
-                            var user = snap.val(); 
-                            console.log(user); 
-                            console.log(user.name);
-                            console.log(user.picture); 
-                            console.log(user.email); 
-                            var userName = user.name; 
-                            var userPicURL = user.picture; 
-                            var userEmail = user.email; 
-                            document.getElementById("account-txt").innerHTML = user.name; 
-                            $(".account-img").attr("src", userPicURL); 
-                        });  
+                    var adminRef = ref.child('admins').child(auth.uid);
+                    adminRef.on('value', function (snap) {
+                        var user = snap.val(); 
+                        if (user) {
+                            console.log("You're an admin!");
+                            $("#admin-btn").toggleClass("show"); 
+                        } else {
+                            console.log("You're not an admin.");
+                            // Admin-btn is not visible (by default). 
+                        }
+                    }, function (error) {
+                        console.log(error);
                     });
                 } else {
-                    $(".account-txt").hide(); 
-                    $(".account-img").hide(); 
+                    // logged out
                 }
-            }, function (error) {
-                console.log(error);
             });
+        });
 
-            var adminRef = ref.child('admins').child(auth.uid);
-            adminRef.on('value', function (snap) {
-                var user = snap.val(); 
-                if (user) {
-                    console.log("You're an admin!");
-                    $(".admin-btn").toggleClass("show"); 
-                } else {
-                    console.log("You're not an admin.");
-                    // Admin-btn is not visible (by default). 
-                }
-            }, function (error) {
-                console.log(error);
+        // For the account button 
+        $(document).ready(function() { 
+            $(".account-txt").click(function() { 
+                $(".account-menu").toggleClass("show"); 
+                $(".account-img").toggleClass("hover"); 
+                $(".account-txt").toggleClass("hover");
             });
-        } else {
-            // logged out
-        }
-    });
-});
+            $(".account-img").click(function() { 
+                $(".account-menu").toggleClass("show"); 
+                $(".account-img").toggleClass("hover"); 
+                $(".account-txt").toggleClass("hover");
+            }); 
+            $(".account-txt").hover(function() { 
+                $(".account-img").toggleClass("hover"); 
+                $(".account-txt").toggleClass("hover");
+            });
+            $(".account-img").hover(function() { 
+                $(".account-img").toggleClass("hover"); 
+                $(".account-txt").toggleClass("hover");
+            }); 
+            $("#account-logout").click(function() { 
+                var ref = new Firebase("https://mpacares.firebaseio.com/");
+                console.log("it worked"); 
+                ref.unauth();
+                document.getElementById("account-txt").innerHTML = "Not logged in.";
+                var userPicURL = "http://www.webassist.com/account/attachments/1/cache/images/account/crop/generic-avatar_w288_h288/generic-avatar_03161254.png"; 
+                $(".account-img").attr("src", userPicURL);
+            }); 
+        }); 
 
-// For the account button 
-$(document).ready(function() { 
-    $(".account-txt").click(function() { 
-        $(".account-menu").toggleClass("show"); 
-        $(".account-img").toggleClass("hover"); 
-        $(".account-txt").toggleClass("hover");
-    });
-    $(".account-img").click(function() { 
-        $(".account-menu").toggleClass("show"); 
-        $(".account-img").toggleClass("hover"); 
-        $(".account-txt").toggleClass("hover");
-    }); 
-    $(".account-txt").hover(function() { 
-        $(".account-img").toggleClass("hover"); 
-        $(".account-txt").toggleClass("hover");
-    });
-    $(".account-img").hover(function() { 
-        $(".account-img").toggleClass("hover"); 
-        $(".account-txt").toggleClass("hover");
-    }); 
-}); 
         </script>
     </body>
 </html>

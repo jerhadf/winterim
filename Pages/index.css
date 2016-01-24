@@ -162,11 +162,11 @@ a {
     transition: background .2s linear; 
 } 
 
-.admin-btn {
+#admin-btn {
     display: none; 
 } 
 
-.admin-btn.show { 
+#admin-btn.show {
     display: inline-block;
 } 
 

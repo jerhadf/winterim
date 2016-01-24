@@ -63,12 +63,12 @@ body {
     transition: background .2s linear; 
 } 
 
-.admin-btn {
+#admin-btn {
     display: none; 
 } 
 
-.admin-btn.show { 
-    display: inline-block;
+#admin-btn.show { 
+    display: block;
 } 
 
 /* End the account-expand classes */ 

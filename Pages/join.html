@@ -35,8 +35,8 @@
                 <span id="admin-btn"> Admin </span>
             </div>
             <div class="account">
-                <span class="account-txt" id="account-txt"> Jeremy Hadfield </span>
-                <img src="http://static.independent.co.uk/s3fs-public/thumbnails/image/2013/01/24/12/v2-cute-cat-picture.jpg" class="account-img" width="50px" height="50px"/>
+                <span class="account-txt" id="account-txt"> Not logged in </span>
+                <img src="http://www.webassist.com/account/attachments/1/cache/images/account/crop/generic-avatar_w288_h288/generic-avatar_03161254.png" class="account-img" width="50px" height="50px"/>
             </div>
             <ul> 
                 <li> <a href="/"> HOME </a></li>
@@ -46,7 +46,7 @@
                 <li> <a href="campaigns.html">Current Campaigns </a></li>
                 <li> <a href="contact.html">Contact </a></li>
             </ul>
-        </div> 
+        </div>
         <div class="container"> 
             <div class="row"> 
             <div class="join">
@@ -99,7 +99,7 @@
                         <button class="btn btn-primary" id="pledge-btn" type="submit" style="width:100%"> I agree to the pledge. </button>
                     </div>
                 </form>
-                <script>                  
+<script>                  
 // FACEBOOOK user authentication 
 function facebookAdapter(auth) {
     var user = {
@@ -167,6 +167,7 @@ $('#login-twitter').click(function () {
 /* This function runs twice to ensure that users that sign up 
 and then leave the page will still have their account displayed */ 
 
+            
 //ACCOUNT CHECKER
 $(document).ready(function() { 
     var ref = new Firebase("https://mpacares.firebaseio.com/");
@@ -207,7 +208,7 @@ $(document).ready(function() {
                 var user = snap.val(); 
                 if (user) {
                     console.log("You're an admin!");
-                    $(".admin-btn").toggleClass("show"); 
+                    $("#admin-btn").toggleClass("show"); 
                 } else {
                     console.log("You're not an admin.");
                     // Admin-btn is not visible (by default). 
@@ -241,9 +242,17 @@ $(document).ready(function() {
         $(".account-img").toggleClass("hover"); 
         $(".account-txt").toggleClass("hover");
     }); 
-});
-                </script>
-            </div>
+    $("#account-logout").click(function() { 
+        var ref = new Firebase("https://mpacares.firebaseio.com/");
+        console.log("it worked"); 
+        ref.unauth();
+        document.getElementById("account-txt").innerHTML = "Not logged in.";
+        var userPicURL = "http://www.webassist.com/account/attachments/1/cache/images/account/crop/generic-avatar_w288_h288/generic-avatar_03161254.png"; 
+        $(".account-img").attr("src", userPicURL);
+    }); 
+}); 
+</script>
+                </div>
             </div>
         </div>
         </div>
